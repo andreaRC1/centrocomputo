@@ -1,0 +1,128 @@
+{% extends 'base2.html' %}
+{% load static %}
+
+{% block titulo %}
+    Lista de Usuarios
+{% endblock titulo %}
+    
+
+{% block contenido %}
+<h1 class="app-page-title">Lista de Usuarios</h1>
+<div class="app-card app-card-orders-lable shadow-sm mb-s" id="tabla-usuarios">
+
+
+
+
+
+    <table class="table  table-borderless">
+        <thead class="table-info">
+            <th>Usuario</th>
+            <th>Matricula</th>
+            <th>Saldo</th>
+            <th>Acciones</th>  
+            
+            {% if perms.auth.administrador_permiso %}
+            <th>Eliminar</th>
+            <th>Grupos</th>
+                        
+            {% endif %}
+            
+                         
+            
+        </thead>
+        <tbody>
+
+          
+            {% for usr in usuarios %}
+            
+                <tr>
+                    {% if not perms.auth.alumno_permiso %}
+                      <td>{{usr.username}}</td>
+                      <td>{{usr.matricula}}</td>
+                      <td>{{usr.saldo}}</td>
+                      <td><div lass="btn-group" role="group" aria-label="Basic outlined example">
+                      <a  href="{% url 'usuarios:editar' usr.id %}"  class="btn btn-info" >Editar</a> </td>
+                    {% endif %}
+                    {% if perms.auth.administrador_permiso %}
+                      <td>{{usr.username}}</td>
+                      <td>{{usr.matricula}}</td>
+                      <td>{{usr.saldo}}</td>
+                      <td><div lass="btn-group" role="group" aria-label="Basic outlined example">
+                      <a  href="{% url 'usuarios:editar' usr.id %}"  class="btn btn-info" >Editar</a> </td>
+                    <td>
+                      <button onclick="muestraModal('{% url 'usuarios:eliminar' usr.id %}', '{{usr.matricula}}', 'usuario')" type="button" class="btn btn-info"  data-toggle="modal" data-target="#exampleModal">
+                        Eliminar
+                      </button>
+                  </div>
+                  </td>
+
+                    {% endif %}
+                    {% if perms.auth.administrador_permiso %}
+                      <td>
+                        {% for grupo in lista_grupos %}
+                          {% if grupo in usr.groups.all %}
+                          <a href="{% url 'usuarios:cambia_grupo' grupo.id usr.id %}" class="btn btn-outline-primary">{{grupo}}</a>
+                          {% else %}
+                          <a href="{% url 'usuarios:cambia_grupo' grupo.id usr.id %}"class="btn btn-outline-danger">{{grupo}}</a>
+                          {% endif %}
+                      {% endfor %}
+                      
+                      </td>
+                     
+                    {% endif %}
+                </tr>
+            {% endfor %}
+                
+        </tbody>
+    </table>
+    </div>
+</body>
+</html>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Advertencia</h5>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="modalCuerpo">
+          ¿Desea eliminar al usuario?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+          <form id="formEliminar" method="post">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-info">Si</button>
+          </form>
+          
+          
+        </div>
+      </div>
+    </div>
+  </div
+
+
+  <nav aria-label="Page navigation conatiner"></nav>
+  <ul class="pagination justify-content-center">
+    {% if page_obj.has_previous %}
+        <li class="page-item"><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; Anterior </a></li>
+        <li class="page-item"><a href="?page={{ page_obj.previous_page_number }}" class="page-link">{{ page_obj.number|add:"-1"}}</a></li>
+    {% endif %}
+
+    <li class="page-item active"><a href="#" class="page-link">{{ page_obj.number }}</a></li>
+
+    {% if page_obj.has_next %}
+        <li class="page-item"><a href="?page={{ page_obj.next_page_number }}" class="page-link">{{ page_obj.number|add:"+1"}}</a></li>
+        <li class="page-item"><a href="?page={{ page_obj.next_page_number }}" class="page-link"> Siguiente &raquo;</a></li>
+    {% endif %}
+  </ul>
+</nav>
+
+{% endblock contenido %}
+
+
+{% block js %}
+    <script src="{% static 'js/funciones.js' %}" ></script>    
+{% endblock js %}

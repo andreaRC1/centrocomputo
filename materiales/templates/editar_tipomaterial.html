@@ -1,0 +1,16 @@
+{% extends 'base2.html' %}
+
+{% block titulo %}
+    Editar Tipo de Material
+{% endblock titulo %}
+
+{% block contenido %}
+{% if perms.auth.administrador_permiso %}
+    <h1 class="app-page-title">Actualizar Tipo de Material</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit" class="btn btn-info">Guardar</button>
+    </form>
+    {% endif %}
+{% endblock contenido %}

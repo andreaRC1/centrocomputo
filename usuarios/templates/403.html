@@ -1,0 +1,20 @@
+{% extends 'base2.html' %}
+
+
+
+{% block titulo %}
+    Error
+{% endblock titulo %}
+
+
+
+{% block contenido %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/403.css' %}">
+<div class="base io">
+    <h1 class="io">403</h1>
+    <h2>Acceso denegado</h2>
+    <h5>(No tienes poder aquí)</h5>
+</div>
+
+{% endblock contenido %}

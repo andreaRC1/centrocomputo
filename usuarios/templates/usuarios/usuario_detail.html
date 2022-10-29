@@ -1,0 +1,22 @@
+{% extends 'base2.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del usuario</title>
+</head>
+<body>
+    <h1>{{object.matricula}}</h1>
+    
+    
+    {% if object.matricula %}
+        <td>
+            {{object.first_name}}
+            {{object.saldo}}
+        </td>
+    {% endif %}
+        
+    <a href="{% url 'usuarios:lista' %}">Regresar</a>
+</body>
+</html>

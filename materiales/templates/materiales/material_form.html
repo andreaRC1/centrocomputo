@@ -1,0 +1,20 @@
+{% extends 'base2.html' %}
+
+{% block titulo %}
+    {{etiqueta}} Material
+{% endblock titulo %}
+
+
+{% block contenido %}
+{% if perms.auth.administrador_permiso %}
+    <h1 class="app-page-title">{{etiqueta}} Material</h1>
+    <hr>
+    <form method="post">
+        {% csrf_token %}
+        
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-info">{{boton}}</button>
+    </form>
+
+{% endif %}
+{% endblock contenido %}

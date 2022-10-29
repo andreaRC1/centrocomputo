@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %}
+    Lista de videojuegos
+{% endblock titulo %}
+    
+
+{% block contenido %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro usuario</title>
+</head>
+<body>
+    <h1>Registro usuario</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit">Guardar</button>
+    </form>
+</body>
+</html>
+
+{% endblock contenido %}
+
+
+{% block js %}
+    <script src="{% static 'js/funciones.js' %}" ></script>    
+{% endblock js %}

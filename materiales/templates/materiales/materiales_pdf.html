@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Materiales</title>
+</head>
+<body>
+  <h1>Lista de Materiales</h1>
+  <table>
+    <thead>
+        <th>Nombre</th>
+        <th>Precio</th>
+        <th>Cantidad</th>
+        <th>Descripción</th>
+        <th>Fecha</th>
+        
+        
+        
+    </thead>
+    <tbody>
+        {% for material in materiales %}
+        <tr>
+            <td>{{material.nombre}}</td>
+            <td>{{material.precio}}</td>
+            <td>{{material.cantidad}}</td>
+            <td>{{material.descripcion}}</td>
+            <td>{{material.fecha}}</td> 
+              
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+  
+</body>
+</html>

@@ -1,0 +1,41 @@
+{% extends 'base2.html' %}
+
+
+{% block titulo %}
+    Detalles de Materiales
+{% endblock titulo %}
+    
+
+{% block contenido %}
+{% if perms.auth.administrador_permiso %}
+<h1 class="app-page-title">Detalles de Materiales</h1>
+<div class="app-card app-card-orders-lable shadow-sm mb-s">
+    <table class="table table-borderless">
+        <thead class="table-info"> 
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Descripción</th>
+            <th>Fecha de Compra</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{object.nombre}}</td>
+                <td>{{object.precio}}</td>
+                <td>{{object.cantidad}}</td>                
+                
+                {% if object.descripcion %}
+                    <td>{{object.descripcion}}</td>
+                {% endif %}
+                <td>{{object.fecha}}</td>
+          </tr>
+        </tbody>
+    </table>
+    
+    </div>
+        
+    <br>
+    <a href="{% url 'materiales:lista' %}" class="btn btn-info">Regresar</a>
+
+   {% endif %} 
+ {% endblock contenido %}
